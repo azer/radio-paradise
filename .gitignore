@@ -1,1 +1,4 @@
 .env
+bin
+pkg
+vendor

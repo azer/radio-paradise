@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/azer/atlas"
-	"github.com/azer/radio-paradise-api/radio-paradise"
 	"github.com/joho/godotenv"
+	"radio-paradise"
 )
 
 func NowPlaying(request *atlas.Request) *atlas.Response {
