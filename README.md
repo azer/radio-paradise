@@ -1,3 +1,3 @@
-## radio-paradise-api
+## radio-paradise
 
-API server for listing the songs being played by [radio paradise](http://radioparadise.com).
+Source code of [listenparadise.org](http://listenparadise.org).
