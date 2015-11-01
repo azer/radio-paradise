@@ -8,8 +8,8 @@ import (
 
 func NowPlaying(request *atlas.Request) *atlas.Response {
 	return atlas.Success(struct {
-		Now    radioparadise.Song
-		Before []radioparadise.Song
+		Now    radioparadise.Song   `json:"now"`
+		Before []radioparadise.Song `json:"before"`
 	}{
 		radioparadise.CurrentPlayingSong(),
 		radioparadise.LastThreeSongs(),

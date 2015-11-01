@@ -17,7 +17,7 @@ install:
 run:
 	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) go run $(GOFILES)
 
-watch: start
+watch: build stop start
 	@fswatch -o *.go src/**/*.go | xargs -n1 -I{}  make restart || make stop
 
 restart: stop clean build start
