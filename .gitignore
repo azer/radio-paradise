@@ -3,3 +3,4 @@ bin
 pkg
 vendor
 ui/node_modules
+io/public/bundle.js

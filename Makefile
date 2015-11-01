@@ -27,6 +27,7 @@ start:
 	@./bin/$(GONAME) & echo $$! > $(PID)
 
 stop:
+	@echo "Stopping bin/$(GONAME)"
 	@-kill `cat $(PID)` || true
 
 clean:

@@ -1,7 +1,7 @@
 import jsonp from 'jsonp';
 import * as player from './player';
 
-const API_URL = 'http://dev/api';
+const API_URL = '/api';
 const API_CHECK_PERIOD = 2000;
 
 export const PLAY = 'PLAY';
@@ -77,5 +77,5 @@ function checkAPI (dispatch) {
 }
 
 function merge (response) {
-  return [response.result.now].concat(response.result.before);
+  return [response.now].concat(response.before);
 }
