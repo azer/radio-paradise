@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/azer/atlas"
 	"github.com/joho/godotenv"
+	"github.com/labstack/echo"
+	"net/http"
 	"radio-paradise"
 )
 
-func NowPlaying(request *atlas.Request) *atlas.Response {
-	return atlas.Success(struct {
+func NowPlaying(c *echo.Context) error {
+	return c.JSONP(http.StatusOK, c.Query("callback"), &struct {
 		Now    radioparadise.Song   `json:"now"`
 		Before []radioparadise.Song `json:"before"`
 	}{
@@ -25,13 +26,12 @@ func main() {
 		panic(err)
 	}
 
-	api := atlas.New(atlas.Map{
-		"/now": NowPlaying,
-	})
-
 	go radioparadise.StayUpdated()
 
-	api.Start(":8080")
+	e := echo.New()
+	e.Static("/", "ui/public")
+	e.Get("/api/now", NowPlaying)
+	e.Run(":8080")
 
 	//radioparadise.MigrateDB()
 }
