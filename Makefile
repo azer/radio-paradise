@@ -30,6 +30,10 @@ stop:
 	@echo "Stopping bin/$(GONAME)"
 	@-kill `cat $(PID)` || true
 
+build-ui:
+	@echo "Building UI"
+	@cd ui && npm run build
+
 clean:
 	@echo "Cleaning"
 	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) go clean
