@@ -9,11 +9,9 @@ import (
 
 func NowPlaying(c *echo.Context) error {
 	return c.JSONP(http.StatusOK, c.Query("callback"), &struct {
-		Now    radioparadise.Song   `json:"now"`
-		Before []radioparadise.Song `json:"before"`
+		Songs []radioparadise.Song `json:"songs"`
 	}{
-		radioparadise.CurrentPlayingSong(),
-		radioparadise.LastThreeSongs(),
+		radioparadise.RecentSongs(),
 	})
 }
 
@@ -26,6 +24,8 @@ func main() {
 		panic(err)
 	}
 
+	//radioparadise.MigrateDB()
+
 	go radioparadise.StayUpdated()
 
 	e := echo.New()
@@ -33,5 +33,4 @@ func main() {
 	e.Get("/api/now", NowPlaying)
 	e.Run(":8080")
 
-	//radioparadise.MigrateDB()
 }

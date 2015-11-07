@@ -11,50 +11,52 @@ import (
 )
 
 func StayUpdated() {
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(3 * time.Second)
 
 	for {
-		go SaveUpdates()
+		go CheckForUpdates()
 		<-ticker.C
 	}
 }
 
-func SaveUpdates() {
-	for song := range FindUpdates() {
-		DB.Create(&song)
-	}
-}
+func CheckForUpdates() {
+	timer := log.Timer()
 
-func FindUpdates() <-chan Song {
-	updates := make(chan Song)
-	go SendUpdates(updates)
-	return updates
-}
-
-func SendUpdates(updates chan Song) {
-	saved := RecentSongs()
-	remote, err := ReadFromRemote()
+	remoteLastSong, err := ReadLastSongFromRemote()
 
 	if err != nil {
-		log.Error("Can not read from remote.", logger.Attrs{
+		log.Error("Can not check for updates. ", logger.Attrs{
 			"error": err,
 		})
+		return
 	}
 
-	for i, r := range remote {
-		if len(saved) > i && (r.Artist == saved[i].Artist && r.Title == saved[i].Title) {
-			break
-		} else {
-			log.Info("Publishing an update", logger.Attrs{
-				"artist": r.Artist,
-				"title":  r.Title,
-			})
+	savedLastSong := CurrentPlayingSong()
 
-			updates <- r
-		}
+	if !remoteLastSong.IsSameWith(&savedLastSong) {
+		log.Info("Saving new song", logger.Attrs{
+			"artist": remoteLastSong.Artist,
+			"title":  remoteLastSong.Title,
+		})
+
+		DB.Create(&remoteLastSong)
 	}
 
-	close(updates)
+	timer.End("Checked for updates")
+}
+
+func ReadLastSongFromRemote() (Song, error) {
+	songs, err := ReadFromRemote()
+
+	if err != nil {
+		return Song{}, err
+	}
+
+	if len(songs) == 0 {
+		return Song{}, errors.New("Can not find any songs")
+	}
+
+	return songs[0], nil
 }
 
 func ReadFromRemote() ([]Song, error) {

@@ -9,13 +9,7 @@
   },
   "browserify": {
     "transform": [
-      "babelify",
-      [
-        "envify",
-        {
-          "API_URL": "http://localhost:8080"
-        }
-      ]
+      "babelify"
     ]
   },
   "repository": {
@@ -41,7 +35,6 @@
   "devDependencies": {
     "babelify": "^6.1.3",
     "browserify": "^12.0.1",
-    "envify": "^3.4.0",
     "uglify-js": "^2.5.0",
     "watchify": "^3.6.0"
   }

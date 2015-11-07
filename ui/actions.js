@@ -1,7 +1,6 @@
 import jsonp from 'jsonp';
 import * as player from './player';
 
-const API_URL = process.env.API_URL;
 const API_CHECK_PERIOD = 2000;
 
 export const PLAY = 'PLAY';
@@ -65,17 +64,13 @@ export function toggle () {
 }
 
 function checkAPI (dispatch) {
-  jsonp(`${API_URL}/now`, (error, response) => {
+  jsonp('/api/now', (error, response) => {
     if (error) {
       return dispatch(cannotGetSongs(error));
     }
 
-    dispatch(gotNewSongs(merge(response)));
+    dispatch(gotNewSongs(response.songs));
 
     setTimeout(checkAPI, API_CHECK_PERIOD, dispatch);
   });
-}
-
-function merge (response) {
-  return [response.now].concat(response.before);
 }

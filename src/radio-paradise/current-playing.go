@@ -6,10 +6,6 @@ func CurrentPlayingSong() Song {
 	return song
 }
 
-func LastThreeSongs() []Song {
-	return RecentSongs()[1:]
-}
-
 func RecentSongs() []Song {
 	var songs []Song
 	DB.Limit(4).Order("played_at desc").Find(&songs)
