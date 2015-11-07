@@ -1,7 +1,7 @@
 import jsonp from 'jsonp';
 import * as player from './player';
 
-const API_URL = '/api';
+const API_URL = process.env.API_URL;
 const API_CHECK_PERIOD = 2000;
 
 export const PLAY = 'PLAY';
