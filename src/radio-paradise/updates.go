@@ -10,16 +10,22 @@ import (
 	"time"
 )
 
+var lock bool
+
 func StayUpdated() {
 	ticker := time.NewTicker(3 * time.Second)
 
 	for {
-		go CheckForUpdates()
+		if !lock {
+			go CheckForUpdates()
+		}
+
 		<-ticker.C
 	}
 }
 
 func CheckForUpdates() {
+	lock = true
 	timer := log.Timer()
 
 	remoteLastSong, err := ReadLastSongFromRemote()
@@ -43,6 +49,7 @@ func CheckForUpdates() {
 	}
 
 	timer.End("Checked for updates")
+	lock = false
 }
 
 func ReadLastSongFromRemote() (Song, error) {
