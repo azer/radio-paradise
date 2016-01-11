@@ -12,6 +12,6 @@ func CurrentPlayingSong() (*Song, error) {
 
 func RecentSongs() ([]*Song, error) {
 	songs := []*Song{}
-	err := DB.Read(&songs, "ORDER BY played_at DESC")
+	err := DB.Read(&songs, "ORDER BY played_at DESC LIMIT 4")
 	return songs, err
 }
