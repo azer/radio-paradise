@@ -1,20 +1,20 @@
 package radioparadise
 
 import (
+	"github.com/azer/crud"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"os"
 )
 
-var DB gorm.DB
+var DB *crud.DB
 
 func OpenDB() error {
 	var err error
-	DB, err = gorm.Open("mysql", os.Getenv("DATABASE_URL"))
+	DB, err = crud.Connect("mysql", os.Getenv("DATABASE_URL"))
 	return err
 }
 
 func MigrateDB() {
-	DB.DropTableIfExists(&Song{})
-	DB.CreateTable(&Song{})
+	//DB.DropTables(Song{})
+	DB.CreateTables(Song{})
 }

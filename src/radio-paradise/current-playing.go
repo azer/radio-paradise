@@ -1,13 +1,17 @@
 package radioparadise
 
-func CurrentPlayingSong() Song {
-	var song Song
-	DB.Order("played_at desc").First(&song)
-	return song
+func CurrentPlayingSong() (*Song, error) {
+	song := &Song{}
+	err := DB.Read(song, "ORDER BY played_at DESC")
+	if err != nil {
+		return nil, err
+	}
+
+	return song, err
 }
 
-func RecentSongs() []Song {
-	var songs []Song
-	DB.Limit(4).Order("played_at desc").Find(&songs)
-	return songs
+func RecentSongs() ([]*Song, error) {
+	songs := []*Song{}
+	err := DB.Read(&songs, "ORDER BY played_at DESC")
+	return songs, err
 }

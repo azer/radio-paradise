@@ -37,9 +37,19 @@ func CheckForUpdates() {
 		return
 	}
 
-	savedLastSong := CurrentPlayingSong()
+	savedLastSong, err := CurrentPlayingSong()
+	if err != nil {
+		log.Error("Can not get currently playing song.", logger.Attrs{
+			"error": err,
+		})
+	}
 
-	if !remoteLastSong.IsSameWith(&savedLastSong) {
+	if savedLastSong == nil || !remoteLastSong.IsSameWith(savedLastSong) {
+		fmt.Println(savedLastSong)
+		if savedLastSong != nil {
+			fmt.Println(remoteLastSong.IsSameWith(savedLastSong))
+		}
+
 		log.Info("Saving new song", logger.Attrs{
 			"artist": remoteLastSong.Artist,
 			"title":  remoteLastSong.Title,
