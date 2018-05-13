@@ -3,11 +3,28 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Radio Paradise</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fonts.css" />
   </head>
   <body>
-    <div class="cover"></div>
-    <div id="radio-paradise" class="radio-paradise centered"></div>
+    <div id="elm"></div>
     <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript">
+     var node = document.querySelector('#elm')
+     var app  = Elm.App.embed(node)
+
+     app.ports.setAsMuted.subscribe(function (muted) {
+         document.querySelector('audio').muted = muted
+     })
+
+     app.ports.forcePlay.subscribe(function (muted) {
+         const audio = document.querySelector('audio')
+         console.log('force play?', audio.paused)
+
+         if (audio.paused) {
+           audio.currentTime = audio.duration
+           audio.play()
+         }
+     })
+    </script>
   </body>
 </html>

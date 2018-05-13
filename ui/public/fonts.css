@@ -1,0 +1,39 @@
+@font-face {
+	font-family: 'TiemposHeadline';
+  font-weight: 300;
+t	src: url('./files/Tiempos_Headline_Light.woff2') format('woff2'), url('./files/Tiempos_Headline_Light.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposHeadline';
+	src: url('./files/Tiempos_Headline_Regular.woff2') format('woff2'), url('./files/Tiempos_Headline_Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposHeadline';
+  font-weight: 600;
+	src: url('./files/Tiempos_Headline_Medium.woff2') format('woff2'), url('./files/Tiempos_Headline_Medium.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposHeadline';
+  font-weight: 700;
+	src: url('./files/Tiempos_Headline_Semibold.woff2') format('woff2'), url('./files/Tiempos_Headline_Semibold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposHeadline';
+  font-weight: 800;
+	src: url('./files/Tiempos_Headline_Bold.woff2') format('woff2'), url('./files/Tiempos_Headline_Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'TiemposHeadline';
+  font-weight: 900;
+	src: url('./files/Tiempos_Headline_Black.woff2') format('woff2'), url('./files/Tiempos_Headline_Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Apercu Mono';
+  src: url("./files/apercu-mono-regular-pro.woff2") format("woff2"), url("./files/apercu-mono-regular-pro.woff") format("woff");
+}
