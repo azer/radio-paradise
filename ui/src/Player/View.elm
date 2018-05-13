@@ -1,6 +1,7 @@
 module Player.View exposing (view)
 
 import Css exposing (..)
+import Css.Media
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (src, type_, controls, autoplay, css)
 import Html.Styled.Events exposing (onClick)
@@ -67,4 +68,7 @@ playerStyle =
         , hover
             [ color (rgba 255 255 255 0.5)
             ]
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ top (px 69)
+            , left (px 10) ]
         ]

@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Radio Paradise</title>
     <link rel="stylesheet" href="fonts.css" />
   </head>
@@ -16,15 +18,20 @@
          document.querySelector('audio').muted = muted
      })
 
-     app.ports.forcePlay.subscribe(function (muted) {
+     app.ports.forcePlay.subscribe(forcePlay)
+
+     function forcePlay () {
          const audio = document.querySelector('audio')
-         console.log('force play?', audio.paused)
 
          if (audio.paused) {
-           audio.currentTime = audio.duration
-           audio.play()
+             try {
+                 audio.currentTime = audio.duration
+                 audio.play()
+             } catch (err) {
+                 audio.play()
+             }
          }
-     })
+     }
     </script>
   </body>
 </html>

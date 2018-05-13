@@ -20,7 +20,7 @@ viewStyle : Image -> Attribute msg
 viewStyle image =
     css
         [ display block
-        , position absolute
+        , position fixed
         , width (pct 100)
         , height (pct 100)
         , top (px 0)

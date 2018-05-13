@@ -1,6 +1,7 @@
 module History.View exposing (view)
 
 import Css exposing (..)
+import Css.Media
 import History.Types exposing (..)
 import Html
 import Html.Styled exposing (..)
@@ -58,12 +59,14 @@ footerStyle : Attribute Msg
 footerStyle =
     css
         [ fontSize (px 14)
-        , lineHeight (Css.em 1)
+        , lineHeight (Css.em 1.4)
         , fontFamilies [ "Apercu Mono", "sans-serif" ]
         , textTransform uppercase
         , fontWeight normal
         , property "margin" "100px 0 0 0"
         , color (rgba 255 255 255 0.4)
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ fontSize (px 12) ]
         ]
 
 titleStyle : Attribute msg
@@ -77,6 +80,8 @@ titleStyle =
         , property "margin" "0 0 5px 0"
         , padding (px 0)
         , color (rgba 255 255 255 0.3)
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ fontSize (px 14) ]
         ]
 
 
@@ -101,12 +106,17 @@ historyStyle =
 
 songsStyle : Attribute Msg
 songsStyle =
-    css [ property "margin" "100px 0 0 0" ]
+    css [ property "margin" "100px 0 0 0"
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ property "margin" "50px 0 0 0" ]]
+
 
 contentStyle : Attribute msg
 contentStyle =
     css
         [ property "margin" "100px 0 0 140px"
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ property "margin" "0 0 0 50px" ]
         ]
 
 tableStyle : Attribute msg
@@ -121,6 +131,8 @@ rowStyle =
         [ listStyle none
         , color (rgba 255 255 255 0.7)
         , lineHeight (Css.em 1.4)
+        , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ fontSize (px 14) ]
         ]
 
 nowPlayingRowStyle : List Style
@@ -129,5 +141,7 @@ nowPlayingRowStyle =
          [ color (rgb 255 255 255)
          , fontSize (px 32)
          , lineHeight (Css.em 1.7)
+         , Css.Media.withMedia [ Css.Media.all [ Css.Media.maxWidth (px 800) ] ]
+            [ fontSize (px 18) ]
          ]
     ]
