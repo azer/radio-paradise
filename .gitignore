@@ -3,4 +3,5 @@ bin
 pkg
 vendor
 ui/node_modules
+ui/elm-stuff
 ui/public/bundle.js

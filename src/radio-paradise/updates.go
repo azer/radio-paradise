@@ -1,6 +1,7 @@
 package radioparadise
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
@@ -39,7 +40,7 @@ func CheckForUpdates() {
 	}
 
 	savedLastSong, err := CurrentPlayingSong()
-	if err != nil {
+	if err != nil && err != sql.ErrNoRows {
 		log.Error("Can not get currently playing song.", logger.Attrs{
 			"error": err,
 		})

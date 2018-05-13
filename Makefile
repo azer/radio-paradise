@@ -34,7 +34,12 @@ stop:
 
 build-ui:
 	@echo "Building UI"
-	@cd ui && npm run build
+	@cd ui && elm-make src/Main.elm --output public/bundle.js
+	@reload-browser chromium
+
+watch-ui:
+	@echo "Watching changes on UI"
+	@find ui/src/. -name '*.elm' | entr make build-ui
 
 clean:
 	@echo "Cleaning"

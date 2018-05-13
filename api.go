@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/azer/logger"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"net/http"
@@ -8,16 +9,31 @@ import (
 	"radio-paradise"
 )
 
-func NowPlaying(c *echo.Context) error {
+var log = logger.New("radio-paradise")
+
+func NowPlaying(c echo.Context) error {
 	recent, err := radioparadise.RecentSongs()
 	if err != nil {
+		log.Error("Failed to get recent songs", logger.Attrs{
+			"error": err,
+		})
 		return err
 	}
 
-	return c.JSONP(http.StatusOK, c.Query("callback"), &struct {
-		Songs []*radioparadise.Song `json:"songs"`
+	popular, err := radioparadise.Popular()
+	if err != nil {
+		log.Error("Failed to get popular songs", logger.Attrs{
+			"error": err,
+		})
+		return err
+	}
+
+	return c.JSON(http.StatusOK, &struct {
+		NowPlaying []*radioparadise.Song `json:"nowplaying"`
+		Popular    []*radioparadise.Song `json:"popular"`
 	}{
-		recent,
+		NowPlaying: recent,
+		Popular:    popular,
 	})
 }
 
@@ -36,6 +52,6 @@ func main() {
 
 	e := echo.New()
 	e.Static("/", "ui/public")
-	e.Get("/api/now", NowPlaying)
-	e.Run(os.Getenv("ADDR"))
+	e.GET("/api/now", NowPlaying)
+	e.Start(os.Getenv("ADDR"))
 }
