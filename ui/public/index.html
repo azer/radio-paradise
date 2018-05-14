@@ -19,17 +19,13 @@
      })
 
      app.ports.forcePlay.subscribe(forcePlay)
+     window.addEventListener('online', forcePlay)
 
      function forcePlay () {
          const audio = document.querySelector('audio')
 
          if (audio.paused) {
-             try {
-                 audio.currentTime = audio.duration
-                 audio.play()
-             } catch (err) {
-                 audio.play()
-             }
+             audio.play()
          }
      }
     </script>
