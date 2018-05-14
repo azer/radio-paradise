@@ -5,7 +5,7 @@ import Css.Media
 import History.Types exposing (..)
 import Html
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, style, href, src, class)
+import Html.Styled.Attributes exposing (css, style, href, src, class, target)
 import Regex
 import String
 
@@ -37,14 +37,17 @@ viewSong customStyle song =
 viewFooter : Html Msg
 viewFooter =
     h2 [footerStyle]
-       [ text "Made by "
-       , link "http://azer.bike" "Azer Koçulu"
-       , text " with love."
+       [ text "<"
+       , link "http://azer.bike" "Webmaster"
+       , text ">"
+       , text " <"
+       , link "http://azer.bike/photo/36821546343" "Photo"
+       , text ">"
        , text " <"
        , link "http://radioparadise.com" "RP"
        , text ">"
        , text " <"
-       , link "https://github.com/azer/radio-paradise" "SOURCE"
+       , link "https://github.com/azer/radio-paradise" "CODE"
        , text ">"
        ]
 
@@ -52,7 +55,8 @@ viewFooter =
 link : String -> String -> Html Msg
 link url label =
     a [css [ color (rgba 255 255 255 0.8), textDecoration none ]
-      , href url]
+      , href url
+      , Html.Styled.Attributes.target "_blank"]
       [text label]
 
 footerStyle : Attribute Msg
