@@ -5,3 +5,4 @@ vendor
 ui/node_modules
 ui/elm-stuff
 ui/public/bundle.js
+ui/public/bundle.min.js

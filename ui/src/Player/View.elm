@@ -12,7 +12,7 @@ import Player.Types exposing (..)
 view : Model -> Html Msg
 view model =
     div
-        [ onClick ToggleMuteMsg
+        [ onClick ToggleMsg
         , playerStyle
         ]
         [ viewAudio model
@@ -24,12 +24,11 @@ viewAudio : Model -> Html Msg
 viewAudio model =
     audio
         [ controls False
-        , autoplay True
+        , autoplay False
         , onPlay PlayMsg
         , onPause PauseMsg
         , onEnd PauseMsg
         , onSuspend PauseMsg
-        , onCanPlayThrough PlayMsg
         , onStalled LoadingMsg
         , onError ErrorMsg
         ]
@@ -38,7 +37,9 @@ viewAudio model =
 
 viewButton : Model -> Html Msg
 viewButton model =
-    if model.loading then
+    if model.idle then
+        Icons.play 32
+    else if model.loading then
         Icons.spinner
     else if model.muted then
         Icons.mute 32

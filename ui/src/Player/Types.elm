@@ -11,7 +11,8 @@ type alias File =
 
 
 type alias Model =
-    { muted : Bool
+    { idle : Bool
+    , muted : Bool
     , loading : Bool
     , sources : List File
     , error : String
@@ -21,7 +22,7 @@ type alias Model =
 type Msg
     = MuteMsg
     | UnmuteMsg
-    | ToggleMuteMsg
+    | ToggleMsg
     | PlayMsg
     | PauseMsg
     | LoadingMsg

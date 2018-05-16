@@ -15,26 +15,32 @@ sources =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model False True sources "", Cmd.none)
+    ( Model True False True sources "", Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "[player]" msg of
+        ToggleMsg ->
+            if model.idle then
+                ( model, forcePlay True )
+            else
+                ( { model | muted = not model.muted }, setAsMuted (not model.muted) )
+
         PlayMsg ->
-            ({ model | loading = False }, Cmd.none)
+            ( { model | idle = False, loading = False }, Cmd.none )
 
         PauseMsg ->
-            ({ model | loading = True }, forcePlay True)
+            if not model.idle then
+                ( { model | loading = True }, forcePlay True )
+            else
+                ( { model | loading = True }, Cmd.none )
 
         MuteMsg ->
             ( { model | muted = True }, setAsMuted True )
 
         UnmuteMsg ->
             ( { model | muted = False }, setAsMuted False )
-
-        ToggleMuteMsg ->
-            ( { model | muted = not model.muted }, setAsMuted (not model.muted) )
 
         LoadingMsg ->
             ( { model | loading = True }, Cmd.none )
@@ -48,9 +54,13 @@ update msg model =
             else
                 ( model, Cmd.none )
 
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Keyboard.downs KeyMsg
 
+
 port setAsMuted : Bool -> Cmd msg
+
+
 port forcePlay : Bool -> Cmd msg
