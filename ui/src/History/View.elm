@@ -38,10 +38,10 @@ viewFooter : Html Msg
 viewFooter =
     h2 [footerStyle]
        [ text "<"
-       , link "http://azer.bike" "Webmaster"
+       , link "http://kodfabrik.com" "Webmaster"
        , text ">"
        , text " <"
-       , link "http://azer.bike/photo/36821546343" "Photo"
+       , link "http://kodfabrik.com/photo/36821546343" "Photo"
        , text ">"
        , text " <"
        , link "http://radioparadise.com" "RP"
